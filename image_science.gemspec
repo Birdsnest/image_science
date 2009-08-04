@@ -22,4 +22,5 @@ Gem::Specification.new do |s|
 
   if s.respond_to? :specification_version then
     s.specification_version = 2
+  end
 end
