@@ -157,4 +157,27 @@ class TestImageScience < MiniTest::Unit::TestCase
 
     refute File.exists?(@tmppath)
   end
+
+  def test_save_with_quality
+    tmppath = 'pix-tmp.jpg'
+    ImageScience.with_image @path do |img|
+      assert img.save(tmppath)
+    end
+
+    assert File.exists?(tmppath)
+    superb_size = File.size(tmppath)
+
+    ImageScience.with_image @path do |img|
+      assert img.save(tmppath, ImageScience::JPEG_QUALITYNORMAL)
+    end
+
+    ImageScience.with_image tmppath do |img|
+      assert_kind_of ImageScience, img
+      assert File.size(tmppath) <= superb_size / 2
+    end
+
+  ensure
+    File.unlink tmppath if File.exist? tmppath
+  end
+
 end

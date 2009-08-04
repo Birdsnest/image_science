@@ -1,8 +1,17 @@
+== 1.2.1-tdd / 2009-08-04
+
+* 1 enhancement:
+
+  * Added an optional jpeg_quality argument to save, taken into account when
+    saving to JPEG, which lets you define which quality level you want for
+    the JPEG output.  Any FreeImage JPEG_xxx constant is acceptable (they're
+    also present, commented, in the Ruby source).
+
 == 1.2.0 / 2009-06-23
 
 * 7 minor enhancements:
 
-  *	Moved quick_thumb to bin/image_science_thumb and properly added.
+  * Moved quick_thumb to bin/image_science_thumb and properly added.
   * Added -s (square) flag to bin/image_science_thumb
   * Added autorotating on image load. (choonkeat)
   * Added ruby_inline to clean globs

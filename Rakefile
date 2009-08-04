@@ -8,6 +8,7 @@ Hoe.plugin :inline
 
 Hoe.spec 'image_science' do
   developer 'Ryan Davis', 'ryand-ruby@zenspider.com'
+  developer 'Christophe Porteneuve', 'tdd@tddsworld.com'
 
   self.rubyforge_name = 'seattlerb'
 

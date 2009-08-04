@@ -11,7 +11,18 @@ require 'inline'
 # http://seattlerb.rubyforge.org/ImageScience.html
 
 class ImageScience
-  VERSION = '1.2.0'
+  VERSION = '1.2.1.tdd'
+
+  # These actually come from FreeImage.h.
+  JPEG_DEFAULT        = 0      #  75%
+  JPEG_FAST           = 1
+  JPEG_ACCURATE       = 2
+  JPEG_QUALITYSUPERB  = 0x80   # 100%
+  JPEG_QUALITYGOOD    = 0x100  #  75%
+  JPEG_QUALITYNORMAL  = 0x200  #  50%
+  JPEG_QUALITYAVERAGE = 0x400  #  25%
+  JPEG_QUALITYBAD     = 0x800  #  10%
+  JPEG_PROGRESSIVE    = 0x2000 # save as a progressive-JPEG (use | to combine with other flags)
 
   ##
   # The top-level image loader opens +path+ and then yields the image.
@@ -46,7 +57,11 @@ class ImageScience
   # Saves the image out to +path+. Changing the file extension will
   # convert the file type to the appropriate format.
 
-  def save(path); end
+  def save(path, jpeg_quality = JPEG_QUALITYSUPERB)
+    save_with_quality(path, jpeg_quality)
+  end
+  
+  def save_with_quality(path, jpeg_quality); end
 
   ##
   # Resizes the image to +width+ and +height+ using a cubic-bspline
@@ -255,12 +270,12 @@ class ImageScience
     END
 
     builder.c <<-"END"
-      VALUE save(char * output) {
+      VALUE save_with_quality(char * output, int jpeg_quality) {
         FREE_IMAGE_FORMAT fif = FreeImage_GetFIFFromFilename(output);
         if (fif == FIF_UNKNOWN) fif = FIX2INT(rb_iv_get(self, "@file_type"));
         if ((fif != FIF_UNKNOWN) && FreeImage_FIFSupportsWriting(fif)) {
           GET_BITMAP(bitmap);
-          int flags = fif == FIF_JPEG ? JPEG_QUALITYSUPERB : 0;
+          int flags = fif == FIF_JPEG ? jpeg_quality : 0;
           BOOL result = 0, unload = 0;
 
           if (fif == FIF_PNG) FreeImage_DestroyICCProfile(bitmap);

@@ -2,6 +2,7 @@
 
 * http://seattlerb.rubyforge.org/ImageScience.html
 * http://rubyforge.org/projects/seattlerb
+* http://github.com/tdd/image_science/tree/master (fork with JPEG quality patch)
 
 == DESCRIPTION:
 
@@ -28,6 +29,10 @@ For more information including build steps, see http://seattlerb.rubyforge.org/
       thumb.save "#{file}_thumb.png"
     end
   end
+  
+The save method accepts an optional jpeg_quality argument, defaulting to JPEG_QUALITYSUPERB
+(100% quality / lossless), which you can change to any of the JPEG_xxx constants in FreeImage
+when saving to JPEG in order to considerably reduce file size.
 
 == REQUIREMENTS:
 
