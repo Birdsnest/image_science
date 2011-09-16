@@ -12,7 +12,6 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ["README.txt"]
   s.files = %w(History.txt Manifest.txt README.txt Rakefile bench.rb bin/image_science_thumb lib/image_science.rb test/pix.png
     test/test_image_science.rb)
-  s.has_rdoc = true
   s.homepage = %q{http://github.com/tdd/image_science}
   s.rdoc_options = ["--inline-source", "--charset=UTF-8"]
   s.require_paths = ["lib"]
